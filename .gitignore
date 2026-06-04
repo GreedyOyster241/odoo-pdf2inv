@@ -1,0 +1,25 @@
+# Environment variables - never commit this
+.env
+ 
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+ 
+# Flask
+instance/
+.webassets-cache
+ 
+# OS
+.DS_Store
+Thumbs.db
+ 
+# IDE
+.vscode/
+.idea/
+ 
