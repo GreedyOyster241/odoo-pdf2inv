@@ -18,9 +18,18 @@
           <h2>PDF to Invoice Workflow</h2>
           <p>Use this template to start building your PDF-to-invoice workflow.</p>
           <p>The page can be extended with forms, scripts, and Odoo integration as needed.</p>
-          <button>Get Started</button>
+          
+          
+
+          <form action="/upload" method="post" enctype="multipart/form-data">
+          <input type="file" name="pdf_file" accept="application/pdf">
+          <button type="submit">Upload PDF</button>
+          </form>
+
         </section>
+        
       </div>
+
     </main>
     <footer>
       <div class="container">
