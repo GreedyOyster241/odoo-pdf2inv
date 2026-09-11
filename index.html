@@ -18,22 +18,34 @@
           <h2>PDF to Invoice Workflow</h2>
           <p>Use this template to start building your PDF-to-invoice workflow.</p>
           <p>The page can be extended with forms, scripts, and Odoo integration as needed.</p>
-          
-          
 
-          <form action="/upload" method="post" enctype="multipart/form-data">
-          <input type="file" name="pdf_file" accept="application/pdf">
-          <button type="submit">Upload PDF</button>
-          </form>
+          <!--Input your information about your Odoo Instance here. -->
+          <!--need to make them next to each other -->
+
+
+              <div class="container" style="float:left;">
+                  <p>Odoo URL:</p>
+                  <p>Odoo Username:</p>
+                  <p>Odoo API Key:</p>
+              </div>
+
+              <div class="container" style="float:right;">
+                  <p contenteditable="true" style="background-color: lightgrey;">https://customer.odoo.com</p>
+                  <p contenteditable="true" style="background-color: lightgrey;">john@company.com</p>
+                  <p contenteditable="true" style="background-color: lightgrey;">xxxxxxxxxxxx</p>
+              </div>
+
+              <!--Figure out a way on how to get the info in the contenteditable containers (URL, Username, API Key) and put it into its own .env file that can be used to configure the backend. -->
+              
 
         </section>
-        
+
       </div>
 
     </main>
     <footer>
       <div class="container">
-        <p>&copy; 2024 Odoo PDF to Invoice. All rights reserved.</p>
+        <p>Created by <a href="https://github.com/GreedyOyster241?tab=repositories">GreedyOyster241</a></p>
       </div>
     </footer>
   </body>

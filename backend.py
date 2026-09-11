@@ -1,7 +1,7 @@
-from flask import Flask  # type: ignore[import]
+from flask import Flask
+from dotenv import load_dotenv
 import os
 import xmlrpc.client
-from dotenv import load_dotenv  # type: ignore[import]
 
 load_dotenv()
 

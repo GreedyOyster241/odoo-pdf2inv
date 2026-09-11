@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Odoo PDF to Invoice</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Odoo PDF to Invoice</h1>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <section class="card">
+          <h2>PDF to Invoice Workflow</h2>
+          <p>Use this template to start building your PDF-to-invoice workflow.</p>
+          <p>The page can be extended with forms, scripts, and Odoo integration as needed.</p>
+
+
+
+          <form action="/upload" method="post" enctype="multipart/form-data">
+          <input type="file" name="pdf_file" accept="application/pdf">
+          <button type="submit">Upload PDF</button>
+          </form>
+
+        </section>
+
+      </div>
+
+    </main>
+    <footer>
+      <div class="container">
+        <p>Created by <a href="https://github.com/GreedyOyster241?tab=repositories">GreedyOyster241</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
