@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
     <title>Odoo PDF to Invoice</title>
   </head>
   <body>
@@ -23,20 +24,45 @@
           <!--need to make them next to each other -->
 
 
-              <div class="container" style="float:left;">
-                  <p>Odoo URL:</p>
-                  <p>Odoo Username:</p>
-                  <p>Odoo API Key:</p>
-              </div>
 
-              <div class="container" style="float:right;">
-                  <p contenteditable="true" style="background-color: lightgrey;">https://customer.odoo.com</p>
-                  <p contenteditable="true" style="background-color: lightgrey;">john@company.com</p>
-                  <p contenteditable="true" style="background-color: lightgrey;">xxxxxxxxxxxx</p>
-              </div>
 
-              <!--Figure out a way on how to get the info in the contenteditable containers (URL, Username, API Key) and put it into its own .env file that can be used to configure the backend. -->
-              
+              <!--User adds login info -->
+              <!-- <div class="container" style="float:right;">
+                  <div contenteditable="true" id="editableContent">
+                      <p style="background-color: lightgrey;">https://customer.odoo.com</p>
+                  </div>
+                  <div contenteditable="true" id="editableContent">
+                      <p style="background-color: lightgrey;">john@company.com</p>
+                  </div>
+                  <div contenteditable="true" id="editableContent">
+                      <p style="background-color: lightgrey;">xxxxxxxxxxxx</p>
+                  </div>
+              </div> -->
+
+              <form id="loginForm">
+                  <div class="input-wrapper">
+                      <input type="text" id="url" placeholder="Odoo URL">
+                      <a href="#" id="urlHelp" style = "text-decoration: none;" title = "Example: https://customer.odoo.com &#013; Can be found on your Odoo's search bar!">Hover on me!</a>
+                  </div>
+                  <div class="input-wrapper">
+                      <input type="text" id="username" placeholder="Odoo Username">
+                      <a href="#" id="usernameHelp" style = "text-decoration: none;" title="Example: john@company.com">Hover on me!</a>
+                  </div>
+                  <div class="input-wrapper">
+                      <input type="password" id="apiKey" placeholder="Odoo API Key">
+                      <a href="#" id="apiKeyHelp" style = "text-decoration: none;" title="Example: xxxxxxxxxxxx &#013; Found ">Hover on me!</a>
+                  </div>
+                  <button onclick="saveContent()">Save</button>
+              </form>
+
+              <p id="status"></p>
+
+
+              <!-- figure out a way on how to get the info in the contenteditable containers (URL, Username, API Key) and put it into its own .env file that can be used to configure the backend. -->
+              <!--Figure out a way in order to get text to show up, like a warning or success message for testing -->
+              <!-- TODO: figure out a way to test this so that it works properly -->
+
+
 
         </section>
 

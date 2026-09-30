@@ -68,3 +68,19 @@ footer {
     padding: 2rem 0;
     color: var(--muted);
 }
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 40rem;
+    margin: 0 auto;
+}
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.input-wrapper label {
+    font-weight: 500;
+}

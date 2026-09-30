@@ -1,7 +1,11 @@
-from flask import Flask
-from dotenv import load_dotenv
+
 import os
 import xmlrpc.client
+from flask import Flask, request
+from dotenv import load_dotenv
+
+# in order to run, use python odoo-pdf2inv/backend.py
+# it will run on http://127.0.0.1:5000
 
 load_dotenv()
 
@@ -18,35 +22,44 @@ username = os.getenv('ODOO_USERNAME', 'admin')
 api_key = os.getenv('ODOO_API_KEY', 'your_api_key')
 
 common = xmlrpc.client.ServerProxy(f'{url}/xmlrpc/2/common')
-try:
-    uid = common.authenticate(db, username, api_key, {})
-    models = xmlrpc.client.ServerProxy(f'{url}/xmlrpc/2/object')
-    print(f'Connected to Odoo with UID: {uid}')
+if all([url, db, username, api_key]):
     try:
-        # Use an empty domain to avoid version-specific fields like 'is_abstract'
-        models_list = models.execute_kw(db, uid, api_key, 'ir.model', 'search_read', [[]], {'fields': ['name'], 'limit': 200})
-        print(f'Available models (showing up to 200): {models_list}')
+        uid = common.authenticate(db, username, api_key, {})
+        models = xmlrpc.client.ServerProxy(f'{url}/xmlrpc/2/object')
+        print(f'Connected to Odoo with UID: {uid}')
+        # Searches for products in the Odoo database
+        products = models.execute_kw(
+            db,
+            uid,
+            api_key,
+            "product.product",
+            "search_read",
+            [[]],
+            {
+                "fields": ["id", "name", "default_code"],
+                "limit": 5
+            }
+        )
+        print(f'Available products: {products}')
+        return products, 200
     except Exception as e:
         print('Connected to Odoo but failed to read models:', e)
-except Exception as e:
-    print('Failed to connect to Odoo:', e)
+        return 'Failed to connect to Odoo!', 500
+else:
+    print('Missing Odoo connection info in .env file')
+    return 'Missing Odoo connection info!', 500
 
 
-# TODO: Add API endpoints to interact with Odoo models as needed
+@app.route('/save', methods=['POST'])
+# Writes text from contenteditable container to .env file
+def save():
+    data = request.get_json()
+    text = data['text']
 
-# PDF upload & processing — simple step-by-step
-#TODO: Add a POST endpoint (e.g. /upload) that accepts a file (multipart/form-data).
-#TODO: Save the uploaded PDF to a temporary folder (./uploads or system temp).
-#TODO: Extract text/data from the PDF using a library (recommended: pdfplumber or PyPDF2).
-#TODO: Parse the extracted text to find fields you need (date, vendor, lines, total, etc.).
-#TODO: Allow the user to instead ask the AI to parse the PDF by sending the extracted text to an AI model (e.g. OpenAI API) with a prompt to extract structured data.
-#TODO: Map parsed fields to Odoo model data and call the XML-RPC API to create records.
-#TODO: Handle errors gracefully (invalid PDF, parsing issues, Odoo API errors) and return informative messages to the frontend.
-#TODO: Implement security measures (file type/size checks, authentication for API endpoints, etc.) to prevent abuse.
-#TODO: Consider adding logging for debugging and monitoring purposes, especially for file uploads and Odoo interactions.
-#TODO: Return a JSON response (success/failure) to the frontend and delete temp files.
-# Notes: Add input validation, error handling, and security checks. For large or slow PDFs,
-# consider processing in a background job (Celery, RQ) and returning a job ID.
+    with open('.env', 'a') as env_file:
+        env_file.write(f'CONTENT="{text}"\n')
+
+    return 'Content saved!', 200
 
 
 if __name__ == '__main__':
